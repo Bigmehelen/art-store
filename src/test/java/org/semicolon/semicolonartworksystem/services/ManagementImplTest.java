@@ -12,7 +12,6 @@ import org.semicolon.semicolonartworksystem.dtos.requests.CreateArtworkRequest;
 import org.semicolon.semicolonartworksystem.dtos.responses.CreateArtworkResponse;
 import org.semicolon.semicolonartworksystem.exceptions.ArtworkNotFoundException;
 import org.semicolon.semicolonartworksystem.utils.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -74,7 +73,7 @@ public class ManagementImplTest {
     public void testThatArtWorkIsAddedAndFoundById() {
         Artwork artwork = Mapper.map(artworkRequest);
         when(artworks.findById(any())).thenReturn(Optional.of(artwork));
-        CreateArtworkResponse sent = managementImpl.findArtworkById(artwork.getArtworkId());
+        CreateArtworkResponse sent = managementImpl.findByArtworkId(artwork.getArtworkId());
         assertNotNull(sent);
     }
 
@@ -82,7 +81,7 @@ public class ManagementImplTest {
     public void testThatCanDeleteArtworkWhenIdExists() {
         Artwork artwork = Mapper.map(artworkRequest);
         when(artworks.findById(any())).thenReturn(Optional.of(artwork));
-        managementImpl.deleteArtworkById(artwork.getArtworkId());
+        managementImpl.deleteByArtworkId(artwork.getArtworkId());
         verify(artworks, times(1)).deleteById(any());
         verify(artworks, times(1)).findById(any());
     }
@@ -91,7 +90,7 @@ public class ManagementImplTest {
     public void testThatCanThrowExceptionWhenArtworkNotFound() {
         Artwork artwork = Mapper.map(artworkRequest);
         when(artworks.findById(any())).thenReturn(Optional.empty());
-        assertThrowsExactly(ArtworkNotFoundException.class, ()-> managementImpl.findArtworkById(artwork.getArtworkId()));
+        assertThrowsExactly(ArtworkNotFoundException.class, ()-> managementImpl.findByArtworkId(artwork.getArtworkId()));
     }
 
     @Test

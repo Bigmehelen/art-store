@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-@Document
-public class Artwork {
+@Document(collection = "artworks")
+public class Artwork{
     @Id
     private String artworkId;
     private String artworkTitle;
@@ -18,7 +18,7 @@ public class Artwork {
     private String artworkImageUrl;
     private LocalDate datePainted;
     private Boolean isAvailable;
-    private int stock;
     private BigDecimal price;
 
+    private Stock stock;
 }

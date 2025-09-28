@@ -1,20 +1,24 @@
 package org.semicolon.semicolonartworksystem.data.models;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
-@Document
+@Document(collection = "carts")
 public class Cart {
     @Id
     private String cartId;
-    private Artwork artwork;
-    private int quantity;
+    private String artworkId;
+    private String userId;
 
-    @DBRef
-    private User user;
+    private Set<Artwork> allArts = new HashSet<>();
 }

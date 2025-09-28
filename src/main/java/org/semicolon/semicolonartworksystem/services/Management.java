@@ -8,7 +8,7 @@ import java.util.List;
 public interface Management {
     CreateArtworkResponse addArtwork(CreateArtworkRequest artworkRequest);
     Long inventory();
-    CreateArtworkResponse findArtworkById(String artworkId);
-    void deleteArtworkById(String artworkId);
+    CreateArtworkResponse findByArtworkId(String artworkId);
+    void deleteByArtworkId(String artworkId);
     List<CreateArtworkResponse> findAllArtwork();
 }

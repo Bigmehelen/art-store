@@ -12,7 +12,6 @@ public class  CreateArtworkRequest {
     private String artworkImageUrl;
     private LocalDate datePainted;
     private Boolean isAvailable;
-    private int stock;
     private BigDecimal price;
 
 }

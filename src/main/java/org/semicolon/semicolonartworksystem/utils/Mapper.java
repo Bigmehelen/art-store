@@ -22,7 +22,6 @@ public class Mapper {
         artwork.setDatePainted(artworkRequest.getDatePainted());
         artwork.setArtworkImageUrl(artworkRequest.getArtworkImageUrl());
         artwork.setIsAvailable(artworkRequest.getIsAvailable());
-        artwork.setStock(artworkRequest.getStock());
         artwork.setPrice(artworkRequest.getPrice());
         return artwork;
     }
@@ -74,16 +73,15 @@ public class Mapper {
 
     public static Cart mapToModel(AddToCartRequest request){
         Cart cart = new Cart();
-        cart.setQuantity(request.getQuantity());
-        cart.setArtwork(request.getArtwork());
-        cart.setUser(request.getUser());
+        cart.setUserId(request.getUserId());
+        cart.setArtworkId(request.getArtworkId());
         return cart;
     }
 
-    public static AddToCartResponse mapToResponse(Cart request ){
+    public static AddToCartResponse mapToResponse(Cart entity ){
         AddToCartResponse response = new AddToCartResponse();
-        response.setCartId(request.getCartId());
-        response.setQuantity(request.getQuantity());
+        response.setCartId(entity.getCartId());
+        response.setSuccess(true);
         return response;
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/require")
+@RequestMapping("/api")
 @CrossOrigin("*")
 public class ArtworkController {
 
@@ -28,11 +28,11 @@ public class ArtworkController {
 
     @PostMapping("/remove/{id}")
     public void deleteArtworksById(@PathVariable String id) {
-        managementImpl.deleteArtworkById(id);
+        managementImpl.deleteByArtworkId(id);
     }
 
     @GetMapping("/find/{id}")
     public CreateArtworkResponse findArtworkById(@PathVariable String id) {
-        return managementImpl.findArtworkById(id);
+        return managementImpl.findByArtworkId(id);
     }
 }

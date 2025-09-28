@@ -2,6 +2,7 @@ package org.semicolon.semicolonartworksystem.dtos.responses;
 
 import lombok.Data;
 import org.semicolon.semicolonartworksystem.data.models.Cart;
+import org.semicolon.semicolonartworksystem.data.models.Stock;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class CreateArtworkResponse {
     private String artworkImageUrl;
     private LocalDate datePainted;
     private Boolean isAvailable;
-    private int stock;
+    private Stock stock;
     private BigDecimal price;
 
 

@@ -29,14 +29,14 @@ public class ManagementImpl implements Management{
     }
 
     @Override
-    public CreateArtworkResponse findArtworkById(String artworkId) {
+    public CreateArtworkResponse findByArtworkId(String artworkId) {
         Artwork artwork = artworks.findById(artworkId)
                 .orElseThrow(() -> new ArtworkNotFoundException("artwork not found"));
         return Mapper.map(artwork);
     }
 
     @Override
-    public void deleteArtworkById(String artworkId) {
+    public void deleteByArtworkId(String artworkId) {
         Artwork artwork = artworks.findById(artworkId)
                 .orElseThrow(() -> new ArtworkNotFoundException("artwork not found"));
         artworks.delete(artwork);

@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 @Data
 public class AddToCartRequest {
-    private int quantity;
-    private Artwork artwork;
-    private User user;
+    private String userId;
+    private String artworkId;
 }
