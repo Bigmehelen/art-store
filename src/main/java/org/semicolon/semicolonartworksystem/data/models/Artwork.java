@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Document(collection = "artworks")
@@ -15,10 +16,11 @@ public class Artwork{
     private String artworkId;
     private String artworkTitle;
     private String artworkDescription;
-    private String artworkImageUrl;
     private LocalDate datePainted;
     private Boolean isAvailable;
     private BigDecimal price;
+
+    private List<String> imageUrls;
 
     private Stock stock;
 }

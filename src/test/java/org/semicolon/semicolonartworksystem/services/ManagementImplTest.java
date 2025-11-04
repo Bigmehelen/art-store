@@ -43,13 +43,12 @@ public class ManagementImplTest {
         artworkRequest.setArtworkTitle("Moremi");
         artworkRequest.setArtworkDescription("African Giant Artwork");
         artworkRequest.setDatePainted(LocalDate.parse("2018-04-04"));
-        artworkRequest.setArtworkImageUrl("https:moremi.com");
 
         artworkRequestTwo = new CreateArtworkRequest();
         artworkRequestTwo.setArtworkTitle("justice");
         artworkRequestTwo.setArtworkDescription("This is justice");
         artworkRequestTwo.setDatePainted(LocalDate.parse("2018-08-09"));
-        artworkRequestTwo.setArtworkImageUrl("https:justice.com");
+
 
         artworkResponse = new CreateArtworkResponse();
         artworkResponseTwo = new CreateArtworkResponse();

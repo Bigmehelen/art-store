@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/auth")
 @Slf4j
 public class UserController {
 
@@ -25,18 +25,13 @@ public class UserController {
 
     @PostMapping("/find-login")
     public LoginResponse login(@RequestBody LoginRequest request) {
-        System.out.println("111111111111");
         if(!Validator.isValidEmail(request.getEmail())) {
             throw new InvalidEmailException("Invalid email format");
         }
-        System.out.println("222222222");
 
         LoginResponse response = userServicesImpl.login(request);
-        System.out.println("3333333333");
-        String token = JwtUtil.generateToken(request.getEmail());
-        System.out.println("44444444444");
-        response.setToken(token);
-        System.out.println("5555555555555 ");
+//        String token = JwtUtil.generateToken(request.getEmail());
+//        response.setToken(token);
         return response;
     }
 

@@ -23,6 +23,7 @@ public class ManagementImpl implements Management{
         Artwork saved = artworks.save(artwork);
         return Mapper.map(saved);
     }
+
     @Override
     public Long inventory() {
         return artworks.count();

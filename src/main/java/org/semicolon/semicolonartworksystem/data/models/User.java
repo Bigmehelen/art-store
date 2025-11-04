@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Set;
+
 @Data
 @Document(collection = "users")
 public class User {
@@ -12,7 +14,9 @@ public class User {
     private String userName;
     private String password;
     private String email;
-    private Role role;
+
+
+    private Set<String> role;
     private String token;
 
     private Cart cart;
