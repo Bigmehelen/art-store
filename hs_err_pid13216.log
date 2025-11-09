@@ -1,0 +1,249 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 132120576 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3564), pid=13216, tid=12444
+#
+# JRE version:  (24.0.2+12) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.0.2+12-54, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2025.2\lib\idea_rt.jar=64283 -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 org.semicolon.semicolonartworksystem.SemicolonArtworkSystemApplication
+
+Host: Intel(R) Core(TM) i5-8365U CPU @ 1.60GHz, 8 cores, 7G,  Windows 11 , 64 bit Build 26100 (10.0.26100.7019)
+Time: Sat Nov  8 05:42:01 2025 W. Central Africa Standard Time elapsed time: 1.054727 seconds (0d 0h 0m 1s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001790a70c8a0):  JavaThread "Unknown thread" [_thread_in_vm, id=12444, stack(0x0000003b97e00000,0x0000003b97f00000) (1024K)]
+
+Stack: [0x0000003b97e00000,0x0000003b97f00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x730829]  (no source info available)
+V  [jvm.dll+0x8d9da3]  (no source info available)
+V  [jvm.dll+0x8dc28d]  (no source info available)
+V  [jvm.dll+0x8dc903]  (no source info available)
+V  [jvm.dll+0x2a9f56]  (no source info available)
+V  [jvm.dll+0x72cd55]  (no source info available)
+V  [jvm.dll+0x72066a]  (no source info available)
+V  [jvm.dll+0x390b7a]  (no source info available)
+V  [jvm.dll+0x398906]  (no source info available)
+V  [jvm.dll+0x3850de]  (no source info available)
+V  [jvm.dll+0x385398]  (no source info available)
+V  [jvm.dll+0x35d10c]  (no source info available)
+V  [jvm.dll+0x35ddcd]  (no source info available)
+V  [jvm.dll+0x89d50f]  (no source info available)
+V  [jvm.dll+0x3f979d]  (no source info available)
+V  [jvm.dll+0x885b66]  (no source info available)
+V  [jvm.dll+0x495e7e]  (no source info available)
+V  [jvm.dll+0x497c51]  (no source info available)
+C  [jli.dll+0x52a1]  (no source info available)
+C  [ucrtbase.dll+0x37b0]  (no source info available)
+C  [KERNEL32.DLL+0x2e8d7]  (no source info available)
+C  [ntdll.dll+0x8c53c]  (no source info available)
+
+Lock stack of current Java thread (top to bottom):
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffdb89af318, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+  0x000001790c9f9d40 WorkerThread "GC Thread#0"                     [id=14988, stack(0x0000003b97f00000,0x0000003b98000000) (1024K)]
+  0x000001790ca4cb80 ConcurrentGCThread "G1 Main Marker"            [id=348, stack(0x0000003b98000000,0x0000003b98100000) (1024K)]
+  0x000001790ca4ebf0 WorkerThread "G1 Conc#0"                       [id=1724, stack(0x0000003b98100000,0x0000003b98200000) (1024K)]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffdb80e138a]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007ffdb8a345f0] Heap_lock - owner thread: 0x000001790a70c8a0
+
+Heap address: 0x0000000082e00000, size: 2002 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+UseCompressedClassPointers 1, UseCompactObjectHeaders 0
+Narrow klass pointer bits 32, Max shift 3
+Narrow klass base: 0xffffffffffffffff, Narrow klass shift: -1
+Encoding Range: [0xffffffffffffffff - 0x000000007fffffff), (2147483648 bytes)
+Klass Range:    [0x0000000000000000 - 0x0000000000000000), (0 bytes)
+Klass ID Range:  [4294967295 - 0) (1)
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 5 size 8 Array Of Cards #cards 10 size 36 Howl #buckets 4 coarsen threshold 1843 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 2048
+
+Heap:
+ garbage-first heap   total reserved 2050048K, committed 0K, used 0K [0x0000000082e00000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffdb84fe679]
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.016 Loaded shared library C:\Program Files\Java\jdk-24\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff60c8f0000 - 0x00007ff60c900000 	C:\Program Files\Java\jdk-24\bin\java.exe
+0x00007ffe48e40000 - 0x00007ffe490a8000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffe47eb0000 - 0x00007ffe47f79000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffe46730000 - 0x00007ffe46b28000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffe45f90000 - 0x00007ffe460db000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffe311d0000 - 0x00007ffe311e6000 	C:\Program Files\Java\jdk-24\bin\jli.dll
+0x00007ffe311b0000 - 0x00007ffe311cb000 	C:\Program Files\Java\jdk-24\bin\VCRUNTIME140.dll
+0x00007ffe47510000 - 0x00007ffe476d7000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffe2d8d0000 - 0x00007ffe2db64000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.7019_none_3e06ffa0e335b8a8\COMCTL32.dll
+0x00007ffe46300000 - 0x00007ffe46327000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffe47c60000 - 0x00007ffe47c8b000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffe47c90000 - 0x00007ffe47d39000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffe46570000 - 0x00007ffe4669c000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffe46250000 - 0x00007ffe462f3000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffe474d0000 - 0x00007ffe47501000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffe30b30000 - 0x00007ffe30b3c000 	C:\Program Files\Java\jdk-24\bin\vcruntime140_1.dll
+0x00007ffe30970000 - 0x00007ffe309fe000 	C:\Program Files\Java\jdk-24\bin\msvcp140.dll
+0x00007ffdb7d70000 - 0x00007ffdb8b11000 	C:\Program Files\Java\jdk-24\bin\server\jvm.dll
+0x00007ffe48750000 - 0x00007ffe48804000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffe47d40000 - 0x00007ffe47de6000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffe46bf0000 - 0x00007ffe46d08000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffe46d10000 - 0x00007ffe46d84000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffe45df0000 - 0x00007ffe45e4e000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffe2e520000 - 0x00007ffe2e555000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffe3a2c0000 - 0x00007ffe3a2cb000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffe45dd0000 - 0x00007ffe45de4000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffe44d10000 - 0x00007ffe44d2b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffe30ac0000 - 0x00007ffe30aca000 	C:\Program Files\Java\jdk-24\bin\jimage.dll
+0x00007ffe3fd10000 - 0x00007ffe3ff52000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffe48a70000 - 0x00007ffe48dfb000 	C:\WINDOWS\System32\combase.dll
+0x00007ffe476e0000 - 0x00007ffe477b7000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffe2c280000 - 0x00007ffe2c2bc000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffe46b30000 - 0x00007ffe46bd5000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffe30ab0000 - 0x00007ffe30abf000 	C:\Program Files\Java\jdk-24\bin\instrument.dll
+0x00007ffe30950000 - 0x00007ffe3096e000 	C:\Program Files\Java\jdk-24\bin\java.dll
+0x00007ffe47250000 - 0x00007ffe473e7000 	C:\WINDOWS\System32\ole32.dll
+0x00007ffe47ff0000 - 0x00007ffe48741000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffe460e0000 - 0x00007ffe4624b000 	C:\WINDOWS\System32\wintypes.dll
+
+JVMTI agents:
+C:\Program Files\JetBrains\IntelliJ IDEA 2025.2\lib\idea_rt.jar path:none, loaded, not initialized, instrumentlib options:64283
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.7019_none_3e06ffa0e335b8a8;C:\Program Files\Java\jdk-24\bin\server
+
+VM Arguments:
+jvm_args: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2025.2\lib\idea_rt.jar=64283 -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 
+java_command: org.semicolon.semicolonartworksystem.SemicolonArtworkSystemApplication
+java_class_path (initial): C:\Users\Dell\OneDrive\Desktop\art-store\target\classes;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-starter-data-mongodb\3.5.5\spring-boot-starter-data-mongodb-3.5.5.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.5\spring-boot-starter-3.5.5.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.5\spring-boot-starter-logging-3.5.5.jar;C:\Users\Dell\.m2\repository\ch\qos\logback\logback-classic\1.5.18\logback-classic-1.5.18.jar;C:\Users\Dell\.m2\repository\ch\qos\logback\logback-core\1.5.18\logback-core-1.5.18.jar;C:\Users\Dell\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\Dell\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\Dell\.m2\repository\org\slf4j\jul-to-slf4j\2.0.17\jul-to-slf4j-2.0.17.jar;C:\Users\Dell\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\Dell\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\Dell\.m2\repository\org\mongodb\mongodb-driver-sync\5.5.1\mongodb-driver-sync-5.5.1.jar;C:\Users\Dell\.m2\repository\org\mongodb\bson\5.5.1\bson-5.5.1.jar;C:\Users\Dell\.m2\repository\org\mongodb\mongodb-driver-core\5.5.1\mongodb-driver-core-5.5.1.jar;C:\Users\Dell\.m2\repository\org\mongodb\bson-record-codec\5.5.1\bson-record-codec-5.5.1.jar;C:\Users\Dell\.m2\repository\org\springframework\data\spring-data-mongodb\4.5.3\spring-data-mongodb-4.5.3.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-tx\6.2.10\spring-tx-6.2.10.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-context\6.2.10\spring-context-6.2.10.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-beans\6.2.10\spring-beans-6.2.10.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-expression\6.2.10\spring-expression-6.2.10.jar;C:\Users\Dell\.m2\repository\org\springframework\data\spring-data-commons\3.5.3\spring-data-commons-3.5.3.jar;C:\Users\Dell\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.5\spring-boot-starter-web-3.5.5.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.5\spring-boot-starter-json-3.5.5.jar;C:\Users\Dell\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.19.2\jackson-datatype-jdk8-2.19.2.jar;C:\Users\Dell\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.19.2\jackson-datatype-jsr310-2.19.2.jar;C:\Users\Dell\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.19.2\jackson-module-parameter-names-2.19.2.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.5\spring-boot-starter-tomcat-3.5.5.jar;C:\Users\Dell\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.44\tomcat-embed-core-10.1.44.jar;C:\Users\Dell\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.44\tomcat-embed-el-10.1.44.jar;C:\Users\Dell\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.44\tomcat-embed-websocket-10.1.44.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-web\6.2.10\spring-web-6.2.10.jar;C:\Users\Dell\.m2\repository\io\micrometer\micrometer-observation\1.15.3\micrometer-observation-1.15.3.jar;C:\Users\Dell\.m2\repository\io\micrometer\micrometer-commons\1.15.3\micrometer-commons-1.15.3.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-webmvc\6.2.10\spring-webmvc-6.2.10.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-devtools\3.5.5\spring-boot-devtools-3.5.5.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot\3.5.5\spring-boot-3.5.5.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.5\spring-boot-autoconfigure-3.5.5.jar;C:\Users\Dell\.m2\repository\org\projectlombok\lombok\1.18.38\lombok-1.18.38.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-core\6.2.10\spring-core-6.2.10.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-jcl\6.2.10\spring-jcl-6.2.10.jar;C:\Users\Dell\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\Dell\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\Dell\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\Dell\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.19.2\jackson-databind-2.19.2.jar;C:\Users\Dell\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.19.2\jackson-annotations-2.19.2.jar;C:\Users\Dell\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.19.2\jackson-core-2.19.2.jar;C:\Users\Dell\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.5.7\spring-boot-starter-security-3.5.7.jar;C:\Users\Dell\.m2\repository\org\springframework\spring-aop\6.2.10\spring-aop-6.2.10.jar;C:\Users\Dell\.m2\repository\org\springframework\security\spring-security-config\6.5.3\spring-security-config-6.5.3.jar;C:\Users\Dell\.m2\repository\org\springframework\security\spring-security-core\6.5.3\spring-security-core-6.5.3.jar;C:\Users\Dell\.m2\repository\org\springframework\security\spring-security-crypto\6.5.3\spring-security-crypto-6.5.3.jar;C:\Users\Dell\.m2\repository\org\springframework\security\spring-security-web\6.5.3\spring-security-web-6.5.3.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+   size_t InitialHeapSize                          = 132120576                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MarkStackSizeMax                         = 536870912                                 {product} {ergonomic}
+   size_t MaxHeapSize                              = 2099249152                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5832704                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122945536                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122880000                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 2099249152                             {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+PATH=C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\MongoDB\Server\8.0.13\bin;C:\Program Files\MongoDB\mongosh\bin;;C:\ProgramData\chocolatey\bin;C:\Program Files\Go\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Dell\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\Dell\AppData\Local\Programs\Python\Python313\;C:\Users\Dell\AppData\Local\Programs\Python\Launcher\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Dell\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2025.1.3.1\bin;;C:\Program Files\JetBrains\WebStorm 2025.1.4.1\bin;;C:\Users\Dell\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Dell\AppData\Local\GitHubDesktop\bin;C:\Users\Dell\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA 2025.2\bin;C:\Users\Dell\AppData\Local\Programs\mongosh\;C:\Users\Dell\AppData\Local\Programs\Qoder\bin;C:\Users\Dell\go\bin
+USERNAME=Dell
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+TMP=C:\Users\Dell\AppData\Local\Temp
+TEMP=C:\Users\Dell\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.7019)
+OS uptime: 0 days 22:42 hours
+Hyper-V role detected
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 142 stepping 12 microcode 0xf8, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, fma, vzeroupper, clflush, clflushopt, hv, rdtscp, f16c
+Processor Information for the first 8 processors :
+  Max Mhz: 1896, Current Mhz: 1596, Mhz Limit: 1592
+
+Memory: 4k page, system-wide physical 8006M (678M free)
+TotalPageFile size 32582M (AvailPageFile size 27M)
+current process WorkingSet (physical memory assigned to process): 13M, peak: 13M
+current process commit charge ("private bytes"): 61M, peak: 187M
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (24.0.2+12-54) for windows-amd64 JRE (24.0.2+12-54), built on 2025-07-08T12:10:27Z with MS VC++ 17.6 (VS2022)
+
+END.

@@ -1,5 +1,6 @@
 package org.semicolon.semicolonartworksystem.services;
 
+import org.semicolon.semicolonartworksystem.data.models.Role;
 import org.semicolon.semicolonartworksystem.data.models.User;
 import org.semicolon.semicolonartworksystem.data.models.UserPrincipal;
 import org.semicolon.semicolonartworksystem.data.repositories.UserRepo;
@@ -14,11 +15,15 @@ import org.semicolon.semicolonartworksystem.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class UserServicesImpl implements UserServices {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public LoginResponse login(LoginRequest request) {
@@ -27,7 +32,7 @@ public class UserServicesImpl implements UserServices {
                 .orElseThrow(()-> new UserNotFoundException("User not found"));
         UserPrincipal  userPrincipal = new UserPrincipal(saved);
         LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setToken(JwtUtil.generateToken(userPrincipal));
+        loginResponse.setToken(jwtUtil.generateToken(userPrincipal));
         return loginResponse;
     }
 
@@ -37,13 +42,26 @@ public class UserServicesImpl implements UserServices {
             throw new UserAlreadyExistsException("User with email" + request.getEmail() + "already exists");
         }
         User user = Mapper.mapToModel(request);
+        user.setRole(Set.of(Role.BUYER));
         User saved = userRepo.save(user);
-        return Mapper.mapToEntity(saved);
+        SignUpResponse signUpResponse = new SignUpResponse();
+        signUpResponse.setToken(jwtUtil.generateToken(new UserPrincipal(saved)));
+        return signUpResponse;
     }
 
     @Override
     public Long inventory() {
         return userRepo.count();
+    }
+
+    @Override
+    public SignUpResponse signUpAsAdmin(SignUpRequest request) {
+        User user = Mapper.mapToModel(request);
+        user.setRole(Set.of(Role.ADMIN));
+        String token = jwtUtil.generateToken(new UserPrincipal(user));
+        SignUpResponse signUpResponse = new SignUpResponse();
+        signUpResponse.setToken(token);
+        return signUpResponse;
     }
 
 }

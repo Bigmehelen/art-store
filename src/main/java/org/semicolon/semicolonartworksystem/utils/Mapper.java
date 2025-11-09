@@ -25,7 +25,6 @@ public class Mapper {
 
 
     public static Artwork map(CreateArtworkRequest artworkRequest) {
-        Mapper newMapper = new Mapper();
         Artwork artwork = new Artwork();
         artwork.setArtworkTitle(artworkRequest.getArtworkTitle());
         artwork.setArtworkDescription(artworkRequest.getArtworkDescription());
@@ -34,14 +33,13 @@ public class Mapper {
         artwork.setPrice(artworkRequest.getPrice());
         List<String> filenames = artworkRequest.getFilenames();
         List<String> imageUrls = filenames.stream()
-                .map(filename->  "http://localhost:1000/api/v1/artwork/download/"+filename)
+                .map(filename-> "http://localhost:2000/api/v1/artwork/download/"+filename)
                 .toList();
         artwork.setImageUrls(imageUrls);
-
         return artwork;
     }
 
-    public static CreateArtworkResponse  map(Artwork entity){
+    public static CreateArtworkResponse map(Artwork entity){
         CreateArtworkResponse response = new CreateArtworkResponse();
         response.setArtworkId(entity.getArtworkId());
         response.setArtworkTitle(entity.getArtworkTitle());
@@ -71,17 +69,13 @@ public class Mapper {
         User users = new User();
         users.setUserName(request.getUserName());
         users.setEmail(request.getEmail());
-//        users.setRole(request.getRole());
         users.setPassword(request.getPassword());
         return users;
     }
 
     public static SignUpResponse mapToEntity(User entity){
         SignUpResponse responses = new SignUpResponse();
-        responses.setUserId(entity.getUserId());
-        responses.setUserName(entity.getUserName());
-//        responses.setRole(entity.getRole());
-        responses.setEmail(entity.getEmail());
+        responses.setToken(entity.getToken());
         return responses;
     }
 

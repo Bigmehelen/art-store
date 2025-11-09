@@ -5,11 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.semicolon.semicolonartworksystem.data.models.Artwork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class ArtworksTest {
@@ -20,10 +18,11 @@ public class ArtworksTest {
 
     @BeforeEach
     public void setUp() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         artwork = new Artwork();
         artwork.setArtworkTitle("Moremi");
         artwork.setArtworkDescription("African Artwork");
-        artwork.setDatePainted(LocalDate.parse("11-09-2020"));
+        artwork.setDatePainted(LocalDate.parse("11-09-2020", formatter));
     }
 
     @Test
@@ -38,7 +37,7 @@ public class ArtworksTest {
         assertEquals(1L, artworks.count());
         Optional<Artwork> found = artworks.findById(saved.getArtworkId());
         assertTrue(found.isPresent(), "Artwork should be found after saving");
-        assertEquals("Moremi", found.get().getArtworkTitle(), "Artwork title should match");;
+        assertEquals("Moremi", found.get().getArtworkTitle(), "Artwork title should match");
     }
 
 }

@@ -16,7 +16,7 @@ public class ArtworkController {
     @Autowired
     private ManagementImpl managementImpl;
 
-    @PostMapping("/entry")
+    @PostMapping("/add-entry")
     public CreateArtworkResponse addArtwork(@RequestBody CreateArtworkRequest request) {
         return managementImpl.addArtwork(request);
     }

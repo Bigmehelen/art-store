@@ -36,28 +36,36 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
         String path = request.getServletPath();
+        log.info("AuthHeader is {}", authHeader);
+        log.info("path is {}", path);
 
-        if(path.startsWith("/api/v1/auth")) {
+        if(path.equals("/api/v1/auth/find-login")) {
             log.info("Permitted to access this resource");
             filterChain.doFilter(request, response);
-
-
+            return;
         }
 
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
+            log.error("Invalid authorization header");
             filterChain.doFilter(request, response);
+            return;
         }
 
         final String authToken = authHeader.substring(7);
+
+        log.info("authToken is {}", authToken);
         final String email = jwtUtil.extractEmail(authToken);
+        log.info("email is {}", email);
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            log.info(userDetails.getAuthorities().toString());
+            log.info(userDetails.toString());
 
             if(jwtUtil.isTokenValid(authToken, userDetails)) {
-
+                log.info("Token is valid {}", userDetails);
                 var claims = jwtUtil.extractAllClaims(authToken);
                 var roles = claims.get("roles",  java.util.List.class);
 
@@ -75,6 +83,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     }
                 }
+
+                log.info("Roles are {}",  grantedAuthorities);
 
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, grantedAuthorities);

@@ -17,6 +17,7 @@ public class ManagementImpl implements Management{
 
     @Autowired
     private Artworks artworks;
+
     @Override
     public CreateArtworkResponse addArtwork(CreateArtworkRequest artworkRequest) {
         Artwork artwork = Mapper.map(artworkRequest);

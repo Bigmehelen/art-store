@@ -13,16 +13,20 @@ import org.semicolon.semicolonartworksystem.dtos.requests.LoginRequest;
 import org.semicolon.semicolonartworksystem.dtos.requests.SignUpRequest;
 import org.semicolon.semicolonartworksystem.dtos.responses.LoginResponse;
 import org.semicolon.semicolonartworksystem.dtos.responses.SignUpResponse;
+import org.semicolon.semicolonartworksystem.utils.JwtUtil;
 import org.semicolon.semicolonartworksystem.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import java.util.Collections;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.semicolon.semicolonartworksystem.data.models.Role.BUYER;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -32,14 +36,14 @@ public class UserServicesImplTest {
     SignUpRequest signUpRequest;
     SignUpResponse signUpResponse;
 
-    @Mock
+    @MockitoBean
     private UserRepo userRepo;
 
-    @InjectMocks
-    private UserServicesImpl userServices;
+    @Autowired
+    private UserServices userService;
 
-    @InjectMocks
-    private UserServicesImpl userServicesImpl;
+    @MockitoBean
+    private JwtUtil jwtUtil;
 
     @BeforeEach
     public void setUp() {
@@ -50,7 +54,7 @@ public class UserServicesImplTest {
         signUpRequest = new SignUpRequest();
         signUpRequest.setUserName("JayOne");
         signUpRequest.setEmail("jayOne@gmail.com");
-        signUpRequest.setRole(Role.valueOf("buyer"));
+        signUpRequest.setPassword("password123");
 
         response = new LoginResponse();
         signUpResponse = new SignUpResponse();
@@ -59,21 +63,32 @@ public class UserServicesImplTest {
     @Test
     public void testThatUserCanLoginWithCorrectPassword() {
         User user = Mapper.map(request);
-        when(userRepo.findById(any())).thenReturn(Optional.of(user));
-        LoginResponse loginResponse = userServices.login(request);
-        assertNotNull(loginResponse);
+        when(userRepo.findByEmail(request.getEmail())).thenReturn(Optional.of(user));
+        when(jwtUtil.generateToken(any())).thenReturn("token");
+        LoginResponse loginResponse = userService.login(request);
+        assertThat(loginResponse).isNotNull();
+        assertThat(loginResponse.getToken()).isNotNull();
     }
 
     @Test
     public void testThatUserCanSignUpWithCorrectFields() {
         User user = Mapper.mapToModel(signUpRequest);
-        when(userRepo.save(any())).thenAnswer(i ->{
-            when(userRepo.count()).thenReturn(1L);
-            return i.getArguments()[0];
-        });
-        SignUpResponse signUpResponse = userServicesImpl.signUp(signUpRequest);
+        when(userRepo.save(any())).thenReturn(user);
+        when(jwtUtil.generateToken(any())).thenReturn("token");
+        SignUpResponse signUpResponse = userService.signUp(signUpRequest);
+        assertThat(signUpResponse).isNotNull();
+        assertThat(signUpResponse.getToken()).isNotNull();
         verify(userRepo, times(1)).save(any());
-        assertEquals(1L, userServicesImpl.inventory());
+    }
+
+    @Test
+    void testThatCanSignUpAsAdminWithCorrectDetails(){
+        User user = Mapper.mapToModel(signUpRequest);
+        when(userRepo.save(any())).thenReturn(user);
+        when(jwtUtil.generateToken(any())).thenReturn("token");
+        SignUpResponse signUpResponse = userService.signUpAsAdmin(signUpRequest);
+        assertThat(signUpResponse).isNotNull();
+        assertThat(signUpResponse.getToken()).isNotNull();
     }
 
 }

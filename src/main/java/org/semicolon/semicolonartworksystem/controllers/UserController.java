@@ -28,10 +28,7 @@ public class UserController {
         if(!Validator.isValidEmail(request.getEmail())) {
             throw new InvalidEmailException("Invalid email format");
         }
-
         LoginResponse response = userServicesImpl.login(request);
-//        String token = JwtUtil.generateToken(request.getEmail());
-//        response.setToken(token);
         return response;
     }
 

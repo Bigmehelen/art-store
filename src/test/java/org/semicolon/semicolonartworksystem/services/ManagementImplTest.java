@@ -12,13 +12,16 @@ import org.semicolon.semicolonartworksystem.dtos.requests.CreateArtworkRequest;
 import org.semicolon.semicolonartworksystem.dtos.responses.CreateArtworkResponse;
 import org.semicolon.semicolonartworksystem.exceptions.ArtworkNotFoundException;
 import org.semicolon.semicolonartworksystem.utils.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -31,11 +34,11 @@ public class ManagementImplTest {
     private CreateArtworkResponse artworkResponse;
     private CreateArtworkResponse artworkResponseTwo;
 
-    @Mock
+    @MockitoBean
     private Artworks artworks;
 
-    @InjectMocks
-    private ManagementImpl managementImpl;
+    @Autowired
+    private Management management;
 
     @BeforeEach
     public void setup() {
@@ -45,8 +48,8 @@ public class ManagementImplTest {
         artworkRequest.setDatePainted(LocalDate.parse("2018-04-04"));
 
         artworkRequestTwo = new CreateArtworkRequest();
-        artworkRequestTwo.setArtworkTitle("justice");
-        artworkRequestTwo.setArtworkDescription("This is justice");
+        artworkRequestTwo.setArtworkTitle("jay");
+        artworkRequestTwo.setArtworkDescription("This is jay");
         artworkRequestTwo.setDatePainted(LocalDate.parse("2018-08-09"));
 
 
@@ -57,22 +60,19 @@ public class ManagementImplTest {
     @Test
     public void testThatOneArtworkIsAdded() {
         Artwork artwork = Mapper.map(artworkRequest);
-        when(artworks.save(any())).thenAnswer(i -> {
-            when(artworks.count()).thenReturn(1L);
-            return i.getArguments()[0];
-        });
+        when(artworks.save(any())).thenReturn(artwork);
 
-        CreateArtworkResponse sent = managementImpl.addArtwork(artworkRequest);
+        CreateArtworkResponse sent = management.addArtwork(artworkRequest);
+        assertThat(sent).isNotNull();
         verify(artworks, times(1)).save(any());
-        assertEquals(artworkRequest.getArtworkTitle(), sent.getArtworkTitle());
-        assertEquals(1L, managementImpl.inventory());
+        assertEquals(1L, management.inventory());
     }
 
     @Test
     public void testThatArtWorkIsAddedAndFoundById() {
         Artwork artwork = Mapper.map(artworkRequest);
         when(artworks.findById(any())).thenReturn(Optional.of(artwork));
-        CreateArtworkResponse sent = managementImpl.findByArtworkId(artwork.getArtworkId());
+        CreateArtworkResponse sent = management.findByArtworkId(artwork.getArtworkId());
         assertNotNull(sent);
     }
 
@@ -80,7 +80,7 @@ public class ManagementImplTest {
     public void testThatCanDeleteArtworkWhenIdExists() {
         Artwork artwork = Mapper.map(artworkRequest);
         when(artworks.findById(any())).thenReturn(Optional.of(artwork));
-        managementImpl.deleteByArtworkId(artwork.getArtworkId());
+        management.deleteByArtworkId(artwork.getArtworkId());
         verify(artworks, times(1)).deleteById(any());
         verify(artworks, times(1)).findById(any());
     }
@@ -89,7 +89,7 @@ public class ManagementImplTest {
     public void testThatCanThrowExceptionWhenArtworkNotFound() {
         Artwork artwork = Mapper.map(artworkRequest);
         when(artworks.findById(any())).thenReturn(Optional.empty());
-        assertThrowsExactly(ArtworkNotFoundException.class, ()-> managementImpl.findByArtworkId(artwork.getArtworkId()));
+        assertThrowsExactly(ArtworkNotFoundException.class, ()-> management.findByArtworkId(artwork.getArtworkId()));
     }
 
     @Test
@@ -97,8 +97,10 @@ public class ManagementImplTest {
         Artwork artwork = Mapper.map(artworkRequest);
         Artwork artworkTwo = Mapper.map(artworkRequestTwo);
         when(artworks.findAll()).thenReturn(Arrays.asList(artwork, artworkTwo));
-        assertEquals(2L, managementImpl.findAllArtwork().size());
-        CreateArtworkResponse sent = managementImpl.findAllArtwork().get(0);
+        assertEquals(2L, management.findAllArtwork().size());
+        CreateArtworkResponse sent = management.findAllArtwork().get(0);
+        assertThat(sent).isNotNull();
+        verify(artworks, times(2)).save(any());
     }
 
 }

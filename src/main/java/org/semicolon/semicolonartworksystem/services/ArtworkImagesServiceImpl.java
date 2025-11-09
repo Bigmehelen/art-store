@@ -33,7 +33,7 @@ public class ArtworkImagesServiceImpl implements ArtworkImageService{
         }
     }
 
-    @Override
+    @Override 
     public Resource download(String file) {
         try{
             Path path = Path.of("uploads/artworkImages/" + file);

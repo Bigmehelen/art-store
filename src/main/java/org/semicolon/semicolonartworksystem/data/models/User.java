@@ -1,12 +1,16 @@
 package org.semicolon.semicolonartworksystem.data.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Document(collection = "users")
 public class User {
     @Id
@@ -15,9 +19,9 @@ public class User {
     private String password;
     private String email;
 
-
-    private Set<String> role;
+    private Set<Role> role;
     private String token;
 
     private Cart cart;
+
 }

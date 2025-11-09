@@ -4,8 +4,6 @@ import lombok.Data;
 import org.semicolon.semicolonartworksystem.data.models.Role;
 @Data
 public class SignUpResponse {
-    private String userId;
-    private String userName;
-    private String email;
-    private Role role;
+
+    private String token;
 }
