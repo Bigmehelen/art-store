@@ -32,40 +32,36 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
         String path = request.getServletPath();
-        log.info("AuthHeader is {}", authHeader);
-        log.info("path is {}", path);
+
+        if(path.equals("/api/v1/email/send")){
+            filterChain.doFilter(request,response);
+            return;
+        }
 
         if(path.equals("/api/v1/auth/find-login")) {
-            log.info("Permitted to access this resource");
             filterChain.doFilter(request, response);
             return;
         }
 
-
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
-            log.error("Invalid authorization header");
             filterChain.doFilter(request, response);
             return;
         }
 
         final String authToken = authHeader.substring(7);
 
-        log.info("authToken is {}", authToken);
         final String email = jwtUtil.extractEmail(authToken);
-        log.info("email is {}", email);
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-            log.info(userDetails.getAuthorities().toString());
-            log.info(userDetails.toString());
 
             if(jwtUtil.isTokenValid(authToken, userDetails)) {
-                log.info("Token is valid {}", userDetails);
                 var claims = jwtUtil.extractAllClaims(authToken);
                 var roles = claims.get("roles",  java.util.List.class);
 
@@ -73,7 +69,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 if(roles != null){
                     for(Object role : roles){
-                        log.debug(role.toString());
                         if(role instanceof Map<?,?> rolesObj){
                             Object authority = rolesObj.get("authority");
                             if(authority != null){
@@ -83,8 +78,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     }
                 }
-
-                log.info("Roles are {}",  grantedAuthorities);
 
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, grantedAuthorities);

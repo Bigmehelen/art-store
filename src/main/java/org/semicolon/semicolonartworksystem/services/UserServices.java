@@ -10,4 +10,5 @@ public interface UserServices {
     SignUpResponse signUp(SignUpRequest request);
     Long inventory();
     SignUpResponse signUpAsAdmin(SignUpRequest request);
+    LoginResponse loginAsAdmin(LoginRequest request);
 }
