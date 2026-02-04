@@ -1,7 +1,5 @@
 package org.semicolon.semicolonartworksystem.controllers;
 
-import org.semicolon.semicolonartworksystem.dtos.requests.CreateArtworkRequest;
-import org.semicolon.semicolonartworksystem.dtos.responses.CreateArtworkResponse;
 import org.semicolon.semicolonartworksystem.services.ArtworkImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/artwork")
 @CrossOrigin("*")
-public class ArtworkImageController{
+public class ArtworkImageController {
 
     @Autowired
     private ArtworkImageService artworkImageService;
@@ -29,7 +27,7 @@ public class ArtworkImageController{
     }
 
     @GetMapping("/download/{filename}")
-    public ResponseEntity<?> download(@PathVariable String filename){
+    public ResponseEntity<?> download(@PathVariable String filename) {
         try {
             Resource resource = artworkImageService.download(filename);
             Path path = resource.getFile().toPath();
@@ -42,7 +40,7 @@ public class ArtworkImageController{
     }
 
     @PostMapping("/upload-all")
-    public ResponseEntity<?> uploadAll(@RequestParam("file") List<MultipartFile> file){
+    public ResponseEntity<?> uploadAll(@RequestParam("file") List<MultipartFile> file) {
         return ResponseEntity.ok()
                 .body(artworkImageService.uploadAll(file));
     }

@@ -2,10 +2,6 @@ package org.semicolon.semicolonartworksystem.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.semicolon.semicolonartworksystem.data.models.Artwork;
 import org.semicolon.semicolonartworksystem.data.repositories.Artworks;
 import org.semicolon.semicolonartworksystem.dtos.requests.CreateArtworkRequest;
@@ -15,7 +11,6 @@ import org.semicolon.semicolonartworksystem.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -27,12 +22,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 public class ManagementImplTest {
     private CreateArtworkRequest artworkRequest;
     private CreateArtworkRequest artworkRequestTwo;
-    private CreateArtworkResponse artworkResponse;
-    private CreateArtworkResponse artworkResponseTwo;
 
     @MockitoBean
     private Artworks artworks;
@@ -51,10 +43,6 @@ public class ManagementImplTest {
         artworkRequestTwo.setArtworkTitle("jay");
         artworkRequestTwo.setArtworkDescription("This is jay");
         artworkRequestTwo.setDatePainted(LocalDate.parse("2018-08-09"));
-
-
-        artworkResponse = new CreateArtworkResponse();
-        artworkResponseTwo = new CreateArtworkResponse();
     }
 
     @Test
@@ -89,7 +77,7 @@ public class ManagementImplTest {
     public void testThatCanThrowExceptionWhenArtworkNotFound() {
         Artwork artwork = Mapper.map(artworkRequest);
         when(artworks.findById(any())).thenReturn(Optional.empty());
-        assertThrowsExactly(ArtworkNotFoundException.class, ()-> management.findByArtworkId(artwork.getArtworkId()));
+        assertThrowsExactly(ArtworkNotFoundException.class, () -> management.findByArtworkId(artwork.getArtworkId()));
     }
 
     @Test

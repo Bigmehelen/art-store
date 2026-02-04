@@ -1,7 +1,6 @@
 package org.semicolon.semicolonartworksystem.utils;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -9,11 +8,9 @@ import io.jsonwebtoken.security.Keys;
 import org.semicolon.semicolonartworksystem.data.models.UserPrincipal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Service
@@ -27,7 +24,7 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public  String generateToken(UserPrincipal userPrincipal) {
+    public String generateToken(UserPrincipal userPrincipal) {
         long currentTimeMillis = System.currentTimeMillis();
         Date issuedAt = new Date(currentTimeMillis);
         Date expiration = new Date(currentTimeMillis + 1_216_000);
@@ -42,13 +39,12 @@ public class JwtUtil {
                 .compact();
     }
 
-
     public String extractEmail(String authToken) {
         return extractAllClaims(authToken)
                 .getSubject();
     }
 
-    public boolean isTokenValid(String authToken, UserDetails  userDetails) {
+    public boolean isTokenValid(String authToken, UserDetails userDetails) {
         String email = extractEmail(authToken);
         return email.equals(userDetails.getUsername()) && isTokenExpired(authToken);
     }

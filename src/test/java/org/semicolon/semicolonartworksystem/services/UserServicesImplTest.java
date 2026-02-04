@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.semicolon.semicolonartworksystem.data.models.Role;
 import org.semicolon.semicolonartworksystem.data.models.User;
@@ -21,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import java.lang.reflect.Executable;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -88,8 +84,8 @@ public class UserServicesImplTest {
     }
 
     @Test
-    public void testThatCanSignUpAsAdminWithCorrectDetails(){
-        User user = Mapper.mapToModel(signUpRequest);
+    public void testThatCanSignUpAsAdminWithCorrectDetails() {
+        Mapper.mapToModel(signUpRequest);
         when(userRepo.findByEmail(any(String.class))).thenReturn(Optional.empty());
         when(jwtUtil.generateToken(any())).thenReturn("token");
         SignUpResponse signUpResponse = userService.signUpAsAdmin(signUpRequest);
@@ -98,7 +94,7 @@ public class UserServicesImplTest {
     }
 
     @Test
-    public void testThatCanLoginAsAdminWithCorrectDetails(){
+    public void testThatCanLoginAsAdminWithCorrectDetails() {
         User user = Mapper.map(request);
         when(userRepo.findByEmail(request.getEmail())).thenReturn(Optional.of(user));
         when(jwtUtil.generateToken(any())).thenReturn("token");
@@ -108,7 +104,7 @@ public class UserServicesImplTest {
     }
 
     @Test
-    public void testThatAnExistingUser_buyerCanRegisterAsAdmin(){
+    public void testThatAnExistingUser_buyerCanRegisterAsAdmin() {
         User user = Mapper.mapToModel(signUpRequest);
         user.setRole(Set.of(BUYER));
         when(userRepo.findByEmail(any())).thenReturn(Optional.of(user));
@@ -124,7 +120,7 @@ public class UserServicesImplTest {
     }
 
     @Test
-    public void testThatAnExistingUser_withRoleAsAdminAndBuyerCanThrowException(){
+    public void testThatAnExistingUser_withRoleAsAdminAndBuyerCanThrowException() {
         User user = Mapper.mapToModel(signUpRequest);
         Set<Role> updatedRoles = new HashSet<>(user.getRole());
         updatedRoles.add(Role.ADMIN);
@@ -133,10 +129,7 @@ public class UserServicesImplTest {
         when(userRepo.findByEmail(any())).thenReturn(Optional.of(user));
         when(jwtUtil.generateToken(any())).thenReturn("token");
 
-        assertThrows(UserAlreadyExistsException.class, ()-> userService.signUpAsAdmin(signUpRequest));
-
-
-
+        assertThrows(UserAlreadyExistsException.class, () -> userService.signUpAsAdmin(signUpRequest));
 
     }
 

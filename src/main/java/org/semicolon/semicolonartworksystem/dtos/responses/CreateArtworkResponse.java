@@ -1,7 +1,6 @@
 package org.semicolon.semicolonartworksystem.dtos.responses;
 
 import lombok.Data;
-import org.semicolon.semicolonartworksystem.data.models.Cart;
 import org.semicolon.semicolonartworksystem.data.models.Stock;
 
 import java.math.BigDecimal;

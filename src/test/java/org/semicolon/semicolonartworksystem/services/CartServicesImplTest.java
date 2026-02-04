@@ -8,25 +8,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.semicolon.semicolonartworksystem.data.models.Artwork;
 import org.semicolon.semicolonartworksystem.data.models.Cart;
-import org.semicolon.semicolonartworksystem.data.models.User;
 import org.semicolon.semicolonartworksystem.data.repositories.Artworks;
 import org.semicolon.semicolonartworksystem.data.repositories.Carts;
-import org.semicolon.semicolonartworksystem.data.repositories.UserRepo;
 import org.semicolon.semicolonartworksystem.dtos.requests.AddToCartRequest;
 import org.semicolon.semicolonartworksystem.dtos.responses.AddToCartResponse;
-import org.semicolon.semicolonartworksystem.exceptions.UserNotFoundException;
 import org.semicolon.semicolonartworksystem.utils.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 
 @ExtendWith(MockitoExtension.class)
 public class CartServicesImplTest {

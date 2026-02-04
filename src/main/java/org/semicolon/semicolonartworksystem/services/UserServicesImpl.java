@@ -11,7 +11,6 @@ import org.semicolon.semicolonartworksystem.dtos.requests.LoginRequest;
 import org.semicolon.semicolonartworksystem.dtos.requests.SignUpRequest;
 import org.semicolon.semicolonartworksystem.dtos.responses.LoginResponse;
 import org.semicolon.semicolonartworksystem.dtos.responses.SignUpResponse;
-import org.semicolon.semicolonartworksystem.exceptions.AdminAlreadyExistsException;
 import org.semicolon.semicolonartworksystem.exceptions.AdminNotFoundException;
 import org.semicolon.semicolonartworksystem.exceptions.UserAlreadyExistsException;
 import org.semicolon.semicolonartworksystem.exceptions.UserNotFoundException;
@@ -41,8 +40,8 @@ public class UserServicesImpl implements UserServices {
     public LoginResponse login(LoginRequest request) {
         User user = Mapper.map(request);
         User saved = userRepo.findByEmail(user.getEmail())
-                .orElseThrow(()-> new UserNotFoundException("User not found"));
-        UserPrincipal  userPrincipal = new UserPrincipal(saved);
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserPrincipal userPrincipal = new UserPrincipal(saved);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtUtil.generateToken(userPrincipal));
         return loginResponse;
@@ -50,7 +49,7 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public SignUpResponse signUp(SignUpRequest request) {
-        if(userRepo.existsByEmail(request.getEmail())){
+        if (userRepo.existsByEmail(request.getEmail())) {
             throw new UserAlreadyExistsException("User with email" + request.getEmail() + "already exists");
         }
         User user = Mapper.mapToModel(request);
@@ -76,12 +75,12 @@ public class UserServicesImpl implements UserServices {
     public SignUpResponse signUpAsAdmin(SignUpRequest request) {
         Optional<User> foundUser = userRepo.findByEmail(request.getEmail());
 
-        if(foundUser.isPresent() &&
+        if (foundUser.isPresent() &&
                 foundUser.get().getRole().contains(Role.ADMIN)
-                && foundUser.get().getRole().contains(Role.BUYER)){
+                && foundUser.get().getRole().contains(Role.BUYER)) {
             throw new UserAlreadyExistsException("User with email" + request.getEmail() + "already exists");
         }
-        if(foundUser.isEmpty()) {
+        if (foundUser.isEmpty()) {
             User user = Mapper.mapToModel(request);
             user.setRole(Set.of(Role.ADMIN));
             userRepo.save(user);
@@ -98,7 +97,7 @@ public class UserServicesImpl implements UserServices {
             userRepo.save(foundUser.get());
 
             SignUpResponse signUpResponse = new SignUpResponse();
-            String token  = jwtUtil.generateToken(new UserPrincipal(foundUser.get()));
+            String token = jwtUtil.generateToken(new UserPrincipal(foundUser.get()));
             signUpResponse.setToken(token);
             return signUpResponse;
         }
@@ -108,9 +107,9 @@ public class UserServicesImpl implements UserServices {
     public LoginResponse loginAsAdmin(LoginRequest request) {
         User user = Mapper.map(request);
         User saved = userRepo.findByEmail(user.getEmail())
-                .orElseThrow(()-> new AdminNotFoundException("Admin not found"));
+                .orElseThrow(() -> new AdminNotFoundException("Admin not found"));
         user.setRole(Set.of(Role.ADMIN));
-        UserPrincipal  userPrincipal = new UserPrincipal(saved);
+        UserPrincipal userPrincipal = new UserPrincipal(saved);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtUtil.generateToken(userPrincipal));
         return loginResponse;

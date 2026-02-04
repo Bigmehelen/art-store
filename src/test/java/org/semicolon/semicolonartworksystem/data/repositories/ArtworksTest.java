@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class ArtworksTest {
     Artwork artwork;
@@ -26,13 +27,13 @@ public class ArtworksTest {
     }
 
     @Test
-    public void testThatOneArtworkIsSavedAndCountIsOne(){
-        Artwork saved = artworks.save(artwork);
+    public void testThatOneArtworkIsSavedAndCountIsOne() {
+        artworks.save(artwork);
         assertEquals(1L, artworks.count());
     }
 
     @Test
-    public void testThatOneArtworkIsSavedAndCanBeFound(){
+    public void testThatOneArtworkIsSavedAndCanBeFound() {
         Artwork saved = artworks.save(artwork);
         assertEquals(1L, artworks.count());
         Optional<Artwork> found = artworks.findById(saved.getArtworkId());

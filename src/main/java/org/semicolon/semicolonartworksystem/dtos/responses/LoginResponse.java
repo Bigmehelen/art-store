@@ -1,6 +1,5 @@
 package org.semicolon.semicolonartworksystem.dtos.responses;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

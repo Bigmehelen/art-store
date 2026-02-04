@@ -2,7 +2,6 @@ package org.semicolon.semicolonartworksystem.data.repositories;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.semicolon.semicolonartworksystem.data.models.Artwork;
 import org.semicolon.semicolonartworksystem.data.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +16,7 @@ public class UserRepoTest {
     private UserRepo userRepo;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         user = new User();
         user.setUserName("avatar");
         user.setEmail("avatar@gmail.com");
@@ -26,7 +25,7 @@ public class UserRepoTest {
     }
 
     @Test
-    public void testThatUserCanBeAdded(){
+    public void testThatUserCanBeAdded() {
         User saved = userRepo.save(user);
         assertNotNull(saved);
 

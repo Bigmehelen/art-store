@@ -12,11 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SpringSecurityConfig{
+public class SpringSecurityConfig {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -29,15 +28,14 @@ public class SpringSecurityConfig{
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth-> auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("api/v1/email/**").permitAll()
                         .requestMatchers("/api/v1/admin-auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/artwork/remove").hasAnyRole("ADMIN")
                         .requestMatchers("/api/v1/artwork").hasAnyRole("ADMIN", "BUYER")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/artwork").hasAnyRole("ADMIN","BUYER")
-                        .anyRequest().authenticated()
-                )
+                        .requestMatchers(HttpMethod.POST, "/api/v1/artwork").hasAnyRole("ADMIN", "BUYER")
+                        .anyRequest().authenticated())
                 .userDetailsService(customUserDetailsService)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -46,8 +44,9 @@ public class SpringSecurityConfig{
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(customUserDetailsService)
-                .and().build();
+        AuthenticationManagerBuilder authenticationManagerBuilder = http
+                .getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(customUserDetailsService);
+        return authenticationManagerBuilder.build();
     }
 }
