@@ -30,7 +30,7 @@ public class SpringSecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("api/v1/email/**").permitAll()
+                        .requestMatchers("/api/v1/email/**").permitAll()
                         .requestMatchers("/api/v1/admin-auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/artwork/remove").hasAnyRole("ADMIN")
                         .requestMatchers("/api/v1/artwork").hasAnyRole("ADMIN", "BUYER")
